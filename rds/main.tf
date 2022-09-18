@@ -52,7 +52,7 @@ output "subnet1" {
  		aws_default_subnet.default_az2.id,
  		aws_default_subnet.default_az3.id,
  	]
- }
+}
 
 
 
