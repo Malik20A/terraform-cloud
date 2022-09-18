@@ -45,14 +45,14 @@ output "subnet1" {
 }
 
 
-# resource "aws_db_subnet_group" "db" {
-# 	name = "db"
-# 	subnet_ids = [
-# 		aws_default_subnet.default_az1.id,
-# 		aws_default_subnet.default_az2.id,
-# 		aws_default_subnet.default_az3.id,
-# 	]
-# }
+ resource "aws_db_subnet_group" "db" {
+ 	name = "db"
+ 	subnet_ids = [
+ 		aws_default_subnet.default_az1.id,
+ 		aws_default_subnet.default_az2.id,
+ 		aws_default_subnet.default_az3.id,
+ 	]
+ }
 
 
 
