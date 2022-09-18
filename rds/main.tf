@@ -55,22 +55,6 @@ resource "aws_db_subnet_group" "db" {
 }
 
 
-resource "aws_db_instance" "default" {
-	identifier = "dbname"
-	allocated_storage = 20
-	storage_type = "gp2"
-	engine = "mysql"
-	engine_version = "5.7"
-	instance_class = "db.t2.micro"
-	db_name = "mydb"
-	username = "admin"
-	password = random_password.random.result
-	publicly_accessible = true
-	db_subnet_group_name = aws_db_subnet_group.db.name
-	skip_final_snapshot = true #used to delete the repo in the future without this you cant delete. There are bugs reported 
-}
-
-
 
 resource "aws_rds_cluster" "example" {
   cluster_identifier = "example"
