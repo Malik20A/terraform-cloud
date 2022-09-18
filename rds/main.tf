@@ -64,6 +64,7 @@ resource "aws_rds_cluster" "example" {
   database_name      = "test"
   master_username    = "test"
   master_password    = "must_be_eight_characters"
+  db_subnet_group_name = aws_db_subnet_group.db.name
 
   serverlessv2_scaling_configuration {
     max_capacity = 1.0
