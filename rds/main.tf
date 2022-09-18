@@ -57,7 +57,7 @@ output "subnet1" {
 
 
 resource "aws_rds_cluster" "ex0" {
-  cluster_identifier = "example"
+  cluster_identifier = "ex0"
   engine             = "aurora-postgresql"
   engine_mode        = "provisioned"
   engine_version     = "13.6"
@@ -65,7 +65,7 @@ resource "aws_rds_cluster" "ex0" {
   master_username    = "test"
   master_password    = "must_be_eight_characters"
   skip_final_snapshot  = true
-  db_subnet_group_name = aws_db_subnet_group.db.name
+#  db_subnet_group_name = aws_db_subnet_group.db.name
 
   serverlessv2_scaling_configuration {
     max_capacity = 1.0
@@ -74,22 +74,22 @@ resource "aws_rds_cluster" "ex0" {
 }
 
 resource "aws_rds_cluster_instance" "ex1" {
-  cluster_identifier = aws_rds_cluster.example.id
+  cluster_identifier = aws_rds_cluster.ex0.id
   instance_class     = "db.serverless"
-  engine             = aws_rds_cluster.example.engine
-  engine_version     = aws_rds_cluster.example.engine_version
+  engine             = aws_rds_cluster.ex1.engine
+  engine_version     = aws_rds_cluster.ex1.engine_version
 }
 
 resource "aws_rds_cluster_instance" "ex2" {
-  cluster_identifier = aws_rds_cluster.example.id
+  cluster_identifier = aws_rds_cluster.ex0.id
   instance_class     = "db.serverless"
-  engine             = aws_rds_cluster.example.engine
-  engine_version     = aws_rds_cluster.example.engine_version
+  engine             = aws_rds_cluster.ex2.engine
+  engine_version     = aws_rds_cluster.ex2.engine_version
 }
 
 resource "aws_rds_cluster_instance" "ex3" {
-  cluster_identifier = aws_rds_cluster.example.id
+  cluster_identifier = aws_rds_cluster.ex0.id
   instance_class     = "db.serverless"
-  engine             = aws_rds_cluster.example.engine
-  engine_version     = aws_rds_cluster.example.engine_version
+  engine             = aws_rds_cluster.ex3.engine
+  engine_version     = aws_rds_cluster.ex3.engine_version
 }
