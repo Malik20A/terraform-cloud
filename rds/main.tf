@@ -76,20 +76,20 @@ resource "aws_rds_cluster" "ex0" {
 resource "aws_rds_cluster_instance" "ex1" {
   cluster_identifier = aws_rds_cluster.ex0.id
   instance_class     = "db.serverless"
-  engine             = aws_rds_cluster.ex1.engine
-  engine_version     = aws_rds_cluster.ex1.engine_version
+  engine             = aws_rds_cluster.ex0.engine
+  engine_version     = aws_rds_cluster.ex0.engine_version
 }
 
 resource "aws_rds_cluster_instance" "ex2" {
   cluster_identifier = aws_rds_cluster.ex0.id
   instance_class     = "db.serverless"
-  engine             = aws_rds_cluster.ex2.engine
-  engine_version     = aws_rds_cluster.ex2.engine_version
+  engine             = aws_rds_cluster.ex0.engine
+  engine_version     = aws_rds_cluster.ex0.engine_version
 }
 
 resource "aws_rds_cluster_instance" "ex3" {
   cluster_identifier = aws_rds_cluster.ex0.id
   instance_class     = "db.serverless"
-  engine             = aws_rds_cluster.ex3.engine
-  engine_version     = aws_rds_cluster.ex3.engine_version
+  engine             = aws_rds_cluster.ex0.engine
+  engine_version     = aws_rds_cluster.ex0.engine_version
 }
