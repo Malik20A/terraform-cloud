@@ -68,7 +68,7 @@ resource "aws_rds_cluster" "default" {
 
 
 
-resource "aws_rds_cluster_instance" "test1" {
+resource "aws_rds_cluster_instance" "reader1" {
   apply_immediately  = true
   cluster_identifier = aws_rds_cluster.default.id
   identifier         = "test1"
@@ -77,7 +77,7 @@ resource "aws_rds_cluster_instance" "test1" {
   engine_version     = aws_rds_cluster.default.engine_version
 }
 
-resource "aws_rds_cluster_instance" "test2" {
+resource "aws_rds_cluster_instance" "reader2" {
   apply_immediately  = true
   cluster_identifier = aws_rds_cluster.default.id
   identifier         = "test2"
@@ -86,7 +86,7 @@ resource "aws_rds_cluster_instance" "test2" {
   engine_version     = aws_rds_cluster.default.engine_version
 }
 
-resource "aws_rds_cluster_instance" "test3" {
+resource "aws_rds_cluster_instance" "reader3" {
   apply_immediately  = true
   cluster_identifier = aws_rds_cluster.default.id
   identifier         = "test3"
@@ -95,14 +95,37 @@ resource "aws_rds_cluster_instance" "test3" {
   engine_version     = aws_rds_cluster.default.engine_version
 }
 
+resource "aws_rds_cluster_instance" "writer" {
+  apply_immediately  = true
+  cluster_identifier = aws_rds_cluster.default.id
+  identifier         = "test3"
+  instance_class     = "db.t2.small"
+  engine             = aws_rds_cluster.default.engine
+  engine_version     = aws_rds_cluster.default.engine_version
+}
+
+resource "aws_rds_cluster_endpoint" "reader1" {
+  cluster_identifier          = aws_rds_cluster.default.id
+  cluster_endpoint_identifier = "reader"
+  custom_endpoint_type        = "READER"
+
+  excluded_members = [
+    aws_rds_cluster_instance.reader2.id,
+    aws_rds_cluster_instance.reader3.id,
+    aws_rds_cluster_instance.writer.id,
+  ]
+}
+
 resource "aws_rds_cluster_endpoint" "reader2" {
   cluster_identifier          = aws_rds_cluster.default.id
   cluster_endpoint_identifier = "reader"
   custom_endpoint_type        = "READER"
 
   excluded_members = [
-    aws_rds_cluster_instance.test1.id,
-    aws_rds_cluster_instance.test2.id,
+    aws_rds_cluster_instance.reader1.id,
+    aws_rds_cluster_instance.reader3.id,
+    aws_rds_cluster_instance.writer.id,
+
   ]
 }
 
@@ -112,7 +135,21 @@ resource "aws_rds_cluster_endpoint" "reader3" {
   custom_endpoint_type        = "READER"
 
   excluded_members = [
-    aws_rds_cluster_instance.test1.id,# 
-    aws_rds_cluster_instance.test3.id,
+    aws_rds_cluster_instance.reader1.id,
+    aws_rds_cluster_instance.reader2.id,
+    aws_rds_cluster_instance.writer.id,
+
+  ]
+}
+
+resource "aws_rds_cluster_endpoint" "writer" {
+  cluster_identifier          = aws_rds_cluster.default.id
+  cluster_endpoint_identifier = "reader"
+  custom_endpoint_type        = "READER"
+
+  excluded_members = [
+    aws_rds_cluster_instance.reader1.id,
+    aws_rds_cluster_instance.reader2.id,
+    aws_rds_cluster_instance.reader3.id,
   ]
 }
