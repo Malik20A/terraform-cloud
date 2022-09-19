@@ -141,7 +141,7 @@ resource "aws_rds_cluster_endpoint" "reader1" {
 resource "aws_rds_cluster_endpoint" "writer" {
   cluster_identifier          = aws_rds_cluster.example.id
   cluster_endpoint_identifier = "writer"
-  custom_endpoint_type        = "WRITER"
+  custom_endpoint_type        = "ANY"
 
   excluded_members = [
     aws_rds_cluster_instance.reader1.id,
