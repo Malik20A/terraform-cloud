@@ -65,6 +65,7 @@ resource "aws_rds_cluster" "example" {
   master_username    = "test"
   master_password    = "must_be_eight_characters"
   db_subnet_group_name = aws_db_subnet_group.db.name
+  skip_final_snapshot = true
 
   serverlessv2_scaling_configuration {
     max_capacity = 1.0
@@ -72,7 +73,7 @@ resource "aws_rds_cluster" "example" {
   }
 }
 
-resource "aws_rds_cluster_instance" "example1" {
+resource "aws_rds_cluster_instance" "writer1" {
   cluster_identifier = aws_rds_cluster.example.id
   instance_class     = "db.serverless"
   engine             = aws_rds_cluster.example.engine
@@ -80,11 +81,44 @@ resource "aws_rds_cluster_instance" "example1" {
 }
 
 
-resource "aws_rds_cluster_instance" "example2" {
+resource "aws_rds_cluster_instance" "writer2" {
   cluster_identifier = aws_rds_cluster.example.id
   instance_class     = "db.serverless"
   engine             = aws_rds_cluster.example.engine
   engine_version     = aws_rds_cluster.example.engine_version
+}
+
+resource "aws_rds_cluster_instance" "writer3" {
+  cluster_identifier = aws_rds_cluster.example.id
+  instance_class     = "db.serverless"
+  engine             = aws_rds_cluster.example.engine
+  engine_version     = aws_rds_cluster.example.engine_version
+}
+
+resource "aws_rds_cluster_instance" "reader" {
+  cluster_identifier = aws_rds_cluster.example.id
+  instance_class     = "db.serverless"
+  engine             = aws_rds_cluster.example.engine
+  engine_version     = aws_rds_cluster.example.engine_version
+}
+resource "aws_rds_cluster_endpoint" "reader2" {
+  cluster_identifier          = aws_rds_cluster.example.id
+  cluster_endpoint_identifier = "reader2"
+  custom_endpoint_type        = "READER"
+
+  excluded_members = [
+    aws_rds_cluster_instance.example1.id
+  ]
+}
+
+resource "aws_rds_cluster_endpoint" "reader3" {
+  cluster_identifier          = aws_rds_cluster.example.id
+  cluster_endpoint_identifier = "reader3"
+  custom_endpoint_type        = "READER"
+
+  excluded_members = [
+    aws_rds_cluster_instance.example2.id
+   ]
 }
 
 resource "aws_rds_cluster_endpoint" "reader2" {
@@ -106,4 +140,5 @@ resource "aws_rds_cluster_endpoint" "reader3" {
     aws_rds_cluster_instance.example2.id
    ]
 }
+
 
