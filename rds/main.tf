@@ -1,9 +1,9 @@
-resource "random_password" "random" {
-  length           = 32
-  special          = false
-  override_special = "!#$%&*()-_=+[]{}<>:?"
-  upper            = false
-}
+# resource "random_password" "random" {
+#   length           = 32
+#   special          = false
+#   override_special = "!#$%&*()-_=+[]{}<>:?"
+#   upper            = false
+# }
 
 
 
@@ -113,7 +113,7 @@ resource "aws_rds_cluster_endpoint" "reader3" {
   custom_endpoint_type        = "READER"
 
   excluded_members = [
-    aws_rds_cluster_instance.test1.id,
+    aws_rds_cluster_instance.test1.id,# 
     aws_rds_cluster_instance.test3.id,
   ]
 }
