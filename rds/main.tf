@@ -58,8 +58,8 @@ output "subnet1" {
 resource "aws_rds_cluster" "default" {
   cluster_identifier      = "aurora-cluster-demo"
   database_name           = "mydb"
-  username         = "foo"
-  password         = "bar"
+  master_username    = "test"
+  master_password    = "must_be_eight_characters"
   backup_retention_period = 5
   preferred_backup_window = "07:00-09:00"
   db_subnet_group_name = aws_db_subnet_group.db.name
