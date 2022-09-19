@@ -93,7 +93,7 @@ resource "aws_rds_cluster_endpoint" "reader2" {
   custom_endpoint_type        = "READER"
 
   excluded_members = [
-    aws_rds_cluster_instance.example1.id,
+    aws_rds_cluster_instance.example1.id
   ]
 }
 
