@@ -1,10 +1,3 @@
-output "database_name" {
-    value = "${var.database_name}"
-}
-output "region" {
-    value = "${var.region}"
-}
-
 output "writer_aws_rds_endpoint" {
   value = "Writer ${aws_rds_cluster.example.endpoint}"
 }
