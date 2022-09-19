@@ -55,41 +55,65 @@ output "subnet1" {
 }
 
 
-
-resource "aws_rds_cluster" "ex0" {
-  cluster_identifier = "ex0"
-  engine             = "aurora-postgresql"
-  engine_mode        = "provisioned"
-  engine_version     = "13.6"
-  database_name      = "test"
-  master_username    = "test"
-  master_password    = "must_be_eight_characters"
+resource "aws_rds_cluster" "default" {
+  cluster_identifier      = "aurora-cluster-demo"
+  database_name           = "mydb"
+  master_username         = "foo"
+  master_password         = "bar"
+  backup_retention_period = 5
+  preferred_backup_window = "07:00-09:00"
   skip_final_snapshot  = true
   db_subnet_group_name = aws_db_subnet_group.db.name
-
-  serverlessv2_scaling_configuration {
-    max_capacity = 1.0
-    min_capacity = 0.5
-  }
 }
 
-resource "aws_rds_cluster_instance" "ex1" {
-  cluster_identifier = aws_rds_cluster.ex0.id
-  instance_class     = "db.serverless"
-  engine             = aws_rds_cluster.ex0.engine
-  engine_version     = aws_rds_cluster.ex0.engine_version
+
+
+
+resource "aws_rds_cluster_instance" "test1" {
+  apply_immediately  = true
+  cluster_identifier = aws_rds_cluster.default.id
+  identifier         = "test1"
+  instance_class     = "db.t2.small"
+  engine             = aws_rds_cluster.default.engine
+  engine_version     = aws_rds_cluster.default.engine_version
 }
 
-resource "aws_rds_cluster_instance" "ex2" {
-  cluster_identifier = aws_rds_cluster.ex0.id
-  instance_class     = "db.serverless"
-  engine             = aws_rds_cluster.ex0.engine
-  engine_version     = aws_rds_cluster.ex0.engine_version
+resource "aws_rds_cluster_instance" "test2" {
+  apply_immediately  = true
+  cluster_identifier = aws_rds_cluster.default.id
+  identifier         = "test2"
+  instance_class     = "db.t2.small"
+  engine             = aws_rds_cluster.default.engine
+  engine_version     = aws_rds_cluster.default.engine_version
 }
 
-resource "aws_rds_cluster_instance" "ex3" {
-  cluster_identifier = aws_rds_cluster.ex0.id
-  instance_class     = "db.serverless"
-  engine             = aws_rds_cluster.ex0.engine
-  engine_version     = aws_rds_cluster.ex0.engine_version
+resource "aws_rds_cluster_instance" "test3" {
+  apply_immediately  = true
+  cluster_identifier = aws_rds_cluster.default.id
+  identifier         = "test3"
+  instance_class     = "db.t2.small"
+  engine             = aws_rds_cluster.default.engine
+  engine_version     = aws_rds_cluster.default.engine_version
+}
+
+resource "aws_rds_cluster_endpoint" "reader2" {
+  cluster_identifier          = aws_rds_cluster.default.id
+  cluster_endpoint_identifier = "reader"
+  custom_endpoint_type        = "READER"
+
+  excluded_members = [
+    aws_rds_cluster_instance.test1.id,
+    aws_rds_cluster_instance.test2.id,
+  ]
+}
+
+resource "aws_rds_cluster_endpoint" "reader3" {
+  cluster_identifier          = aws_rds_cluster.default.id
+  cluster_endpoint_identifier = "reader"
+  custom_endpoint_type        = "READER"
+
+  excluded_members = [
+    aws_rds_cluster_instance.test1.id,
+    aws_rds_cluster_instance.test3.id,
+  ]
 }
