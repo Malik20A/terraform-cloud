@@ -1,3 +1,4 @@
+namespace                                   = "wordpress_db"
 region                                      = "us-east-1"
 db_subnet_group_name                        = "mysql"
 cluster_identifier                          = "mysql-wordpress"
