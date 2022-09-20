@@ -1,3 +1,11 @@
+output "region" {
+  region = "${var.region}"
+}
+
+output "database_name" {
+  value = "${var.database_name}"
+}
+
 output "writer_aws_rds_endpoint" {
   value = "Writer ${aws_rds_cluster.example.endpoint}"
 }
