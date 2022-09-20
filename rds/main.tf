@@ -1,58 +1,58 @@
-# resource "random_password" "random" {
-#   length           = 32
-#   special          = false
-#   override_special = "!#$%&*()-_=+[]{}<>:?"
-#   upper            = false
-# }
+resource "random_password" "random" {
+  length           = 32
+  special          = false
+  override_special = "!#$%&*()-_=+[]{}<>:?"
+  upper            = false
+}
 
 
 
-# data "aws_availability_zones" "all" {}
+data "aws_availability_zones" "all" {}
 
 
-# output "AZ" {
-# 	value = data.aws_availability_zones.all.names
-# }
+output "AZ" {
+	value = data.aws_availability_zones.all.names
+}
 
 
 
 
-# resource "aws_default_subnet" "default_az1" {
-# 	availability_zone = data.aws_availability_zones.all.names[0]
-# 	tags = {
-# 		Name = "Subnet1"
-# 	}
-# }
-# resource "aws_default_subnet" "default_az2" {
-# 	availability_zone = data.aws_availability_zones.all.names[1]
-# 	tags = {
-# 		Name = "Subnet2"
-# 	}
-# }
-# resource "aws_default_subnet" "default_az3" {
-# 	availability_zone = data.aws_availability_zones.all.names[2]
-# 	tags = {
-# 		Name = "Subnet3"
-# 	}
-# }
+resource "aws_default_subnet" "default_az1" {
+	availability_zone = data.aws_availability_zones.all.names[0]
+	tags = {
+		Name = "Subnet1"
+	}
+}
+resource "aws_default_subnet" "default_az2" {
+	availability_zone = data.aws_availability_zones.all.names[1]
+	tags = {
+		Name = "Subnet2"
+	}
+}
+resource "aws_default_subnet" "default_az3" {
+	availability_zone = data.aws_availability_zones.all.names[2]
+	tags = {
+		Name = "Subnet3"
+	}
+}
 
-# output "subnet1" {
-# 	value = [ 
-# 		aws_default_subnet.default_az1.id,
-# 		aws_default_subnet.default_az2.id,
-# 		aws_default_subnet.default_az3.id,
-# 	]
-# }
+output "subnet1" {
+	value = [ 
+		aws_default_subnet.default_az1.id,
+		aws_default_subnet.default_az2.id,
+		aws_default_subnet.default_az3.id,
+	]
+}
 
 
-#  resource "aws_db_subnet_group" "db" {
-#  	name = "db"
-#  	subnet_ids = [
-#  		aws_default_subnet.default_az1.id,
-#  		aws_default_subnet.default_az2.id,
-#  		aws_default_subnet.default_az3.id,
-#  	]
-# }
+ resource "aws_db_subnet_group" "db" {
+ 	name = "db"
+ 	subnet_ids = [
+ 		aws_default_subnet.default_az1.id,
+ 		aws_default_subnet.default_az2.id,
+ 		aws_default_subnet.default_az3.id,
+ 	]
+}
 
 
 ### DATA BASE CLUSTER WITH ONE READER, THREE READERS ###
