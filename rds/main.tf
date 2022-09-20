@@ -66,7 +66,7 @@ resource "aws_rds_cluster" "wordpress_db" {
   database_name                           = "${var.database_name}"
   master_username                         = "${var.master_username}"
   master_password                         = "${var.master_password}"
-  db_subnet_group_name                    = "${var.db_subnet_group_name}"
+  db_subnet_group_name                    = "${aws_db_subnet_group.db.name}"
   skip_final_snapshot                     = "${var.skip_final_snapshot}"
   backup_retention_period                 = "${var.backup_retention_period}"
   preferred_backup_window                 = "${var.preferred_backup_window}"
