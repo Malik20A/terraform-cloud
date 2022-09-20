@@ -1,6 +1,6 @@
-output "region" {
-  region = "${var.region}"
-}
+# output "region" {
+#   region = "${var.region}"
+# }
 
 output "database_name" {
   value = "${var.database_name}"
