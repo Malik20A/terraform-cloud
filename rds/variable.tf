@@ -31,3 +31,5 @@ variable "db_subnet_group_name" {}
 variable "tags" {
   type = map
 }
+
+variable "namespace" {}
