@@ -30,9 +30,9 @@ output "IGW" {
     value = "${aws_internet_gateway.dev.id}"
 }
 
-output "dynamodb_table" {
-  value = "terraform-team1"
-}
+# output "dynamodb_table" {
+#   value = "terraform-team1"
+# }
 
 output "ngw" {
     value = "${aws_nat_gateway.nat_gw.id}"
