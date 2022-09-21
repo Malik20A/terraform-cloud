@@ -49,7 +49,7 @@ module "VPC" {
      "${data.module.dev.Private_Subnet1}",
      "${data.module.dev.Private_Subnet2}",
      "${data.module.dev.Private_Subnet3}",
-  ]
+
 
 }
 
