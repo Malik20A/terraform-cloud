@@ -1,5 +1,5 @@
 variable "region" {}
-variable "environment" {}
+# variable "environment" {}
 variable "cidr_block" {}
 
 

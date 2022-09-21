@@ -30,9 +30,9 @@ output "IGW" {
     value = "${module.dev.IGW}"
 }
 
-output "dynamodb" {
-  value = "${module.dev.dynamodb_table}"
-}
+# output "dynamodb" {
+#   value = "${module.dev.dynamodb_table}"
+# }
 
 output "NGW" {
     value = "${module.dev.ngw}"
