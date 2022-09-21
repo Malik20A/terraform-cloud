@@ -44,6 +44,15 @@
 # 	]
 # }
 
+module "VPC" {
+  source = "../VPC/module" [
+     "${data.module.dev.Private_Subnet1}",
+     "${data.module.dev.Private_Subnet2}",
+     "${data.module.dev.Private_Subnet3}",
+  ]
+
+}
+
 
  resource "aws_db_subnet_group" "db" {
  	name = "db"
